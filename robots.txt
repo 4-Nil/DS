@@ -1,1 +1,1 @@
-Sitemap: http://4nil.com/sitemap.xml
+Sitemap: https://4nil.com/sitemap.xml
