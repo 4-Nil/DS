@@ -6,8 +6,8 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-title: fastpages
-description: An easy to use blogging platform with support for Jupyter Notebooks.
+title: 4NIL | Learn Football Data Science
+description: Learn data science techniques using football data.
 github_username: 4-Nil
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "DS"
