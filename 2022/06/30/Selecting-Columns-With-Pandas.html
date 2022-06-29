@@ -1,0 +1,4742 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>How to Select Columns using Python Pandas | 4NIL Learn Football Data Science</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="How to Select Columns using Python Pandas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Learn data science techniques using football data and Jupyter Notebooks" />
+<meta property="og:description" content="Learn data science techniques using football data and Jupyter Notebooks" />
+<link rel="canonical" href="https://4nil.com/2022/06/30/Selecting-Columns-With-Pandas.html" />
+<meta property="og:url" content="https://4nil.com/2022/06/30/Selecting-Columns-With-Pandas.html" />
+<meta property="og:site_name" content="4NIL Learn Football Data Science" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-06-30T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to Select Columns using Python Pandas" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-30T00:00:00-05:00","datePublished":"2022-06-30T00:00:00-05:00","description":"Learn data science techniques using football data and Jupyter Notebooks","headline":"How to Select Columns using Python Pandas","mainEntityOfPage":{"@type":"WebPage","@id":"https://4nil.com/2022/06/30/Selecting-Columns-With-Pandas.html"},"url":"https://4nil.com/2022/06/30/Selecting-Columns-With-Pandas.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://4nil.com/feed.xml" title="4NIL | Learn Football Data Science" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">4NIL | Learn Football Data Science</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How to Select Columns using Python Pandas</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-30T00:00:00-05:00" itemprop="datePublished">
+        Jun 30, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      25 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/4-Nil/DS/tree/master/_notebooks/2022-06-30-Selecting-Columns-With-Pandas.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/4-Nil/DS/master?filepath=_notebooks%2F2022-06-30-Selecting-Columns-With-Pandas.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/4-Nil/DS/blob/master/_notebooks/2022-06-30-Selecting-Columns-With-Pandas.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2F4-Nil%2FDS%2Fblob%2Fmaster%2F_notebooks%2F2022-06-30-Selecting-Columns-With-Pandas.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-06-30-Selecting-Columns-With-Pandas.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this notebook, we will look at different ways we can select columns from a master dataframe. This can be useful when creating a more relevant dataframe to undertake your analysis on.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By the end of this notebook you will be armed with multiple ways to select columns for your dataframe. These include:</p>
+<ul>
+<li>Select columns by name</li>
+<li>Select columns by datatype</li>
+<li>Select columns by index</li>
+<li>Select columns by condition statements</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Getting-ready">Getting ready<a class="anchor-link" href="#Getting-ready"> </a></h2><p>Let's start by importing pandas into our notebook</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next we will create our master dataframe by importing our dataset from a csv file.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/players_22.csv&#39;</span><span class="p">,</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\pleas\AppData\Local\Temp\ipykernel_24464\110054706.py:1: DtypeWarning: Columns (25,108) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv(&#39;data/players_22.csv&#39;, delimiter = &#39;,&#39;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's have a sneak peak at our dataframe</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sofifa_id</th>
+      <th>player_url</th>
+      <th>short_name</th>
+      <th>long_name</th>
+      <th>player_positions</th>
+      <th>overall</th>
+      <th>potential</th>
+      <th>value_eur</th>
+      <th>wage_eur</th>
+      <th>age</th>
+      <th>...</th>
+      <th>lcb</th>
+      <th>cb</th>
+      <th>rcb</th>
+      <th>rb</th>
+      <th>gk</th>
+      <th>player_face_url</th>
+      <th>club_logo_url</th>
+      <th>club_flag_url</th>
+      <th>nation_logo_url</th>
+      <th>nation_flag_url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>158023</td>
+      <td>https://sofifa.com/player/158023/lionel-messi/...</td>
+      <td>L. Messi</td>
+      <td>Lionel Andrés Messi Cuccittini</td>
+      <td>RW, ST, CF</td>
+      <td>93</td>
+      <td>93</td>
+      <td>78000000.0</td>
+      <td>320000.0</td>
+      <td>34</td>
+      <td>...</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>61+3</td>
+      <td>19+3</td>
+      <td>https://cdn.sofifa.net/players/158/023/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/73/60.png</td>
+      <td>https://cdn.sofifa.net/flags/fr.png</td>
+      <td>https://cdn.sofifa.net/teams/1369/60.png</td>
+      <td>https://cdn.sofifa.net/flags/ar.png</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>188545</td>
+      <td>https://sofifa.com/player/188545/robert-lewand...</td>
+      <td>R. Lewandowski</td>
+      <td>Robert Lewandowski</td>
+      <td>ST</td>
+      <td>92</td>
+      <td>92</td>
+      <td>119500000.0</td>
+      <td>270000.0</td>
+      <td>32</td>
+      <td>...</td>
+      <td>60+3</td>
+      <td>60+3</td>
+      <td>60+3</td>
+      <td>61+3</td>
+      <td>19+3</td>
+      <td>https://cdn.sofifa.net/players/188/545/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/21/60.png</td>
+      <td>https://cdn.sofifa.net/flags/de.png</td>
+      <td>https://cdn.sofifa.net/teams/1353/60.png</td>
+      <td>https://cdn.sofifa.net/flags/pl.png</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20801</td>
+      <td>https://sofifa.com/player/20801/c-ronaldo-dos-...</td>
+      <td>Cristiano Ronaldo</td>
+      <td>Cristiano Ronaldo dos Santos Aveiro</td>
+      <td>ST, LW</td>
+      <td>91</td>
+      <td>91</td>
+      <td>45000000.0</td>
+      <td>270000.0</td>
+      <td>36</td>
+      <td>...</td>
+      <td>53+3</td>
+      <td>53+3</td>
+      <td>53+3</td>
+      <td>60+3</td>
+      <td>20+3</td>
+      <td>https://cdn.sofifa.net/players/020/801/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/11/60.png</td>
+      <td>https://cdn.sofifa.net/flags/gb-eng.png</td>
+      <td>https://cdn.sofifa.net/teams/1354/60.png</td>
+      <td>https://cdn.sofifa.net/flags/pt.png</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>190871</td>
+      <td>https://sofifa.com/player/190871/neymar-da-sil...</td>
+      <td>Neymar Jr</td>
+      <td>Neymar da Silva Santos Júnior</td>
+      <td>LW, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>129000000.0</td>
+      <td>270000.0</td>
+      <td>29</td>
+      <td>...</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>62+3</td>
+      <td>20+3</td>
+      <td>https://cdn.sofifa.net/players/190/871/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/73/60.png</td>
+      <td>https://cdn.sofifa.net/flags/fr.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/br.png</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>192985</td>
+      <td>https://sofifa.com/player/192985/kevin-de-bruy...</td>
+      <td>K. De Bruyne</td>
+      <td>Kevin De Bruyne</td>
+      <td>CM, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>125500000.0</td>
+      <td>350000.0</td>
+      <td>30</td>
+      <td>...</td>
+      <td>69+3</td>
+      <td>69+3</td>
+      <td>69+3</td>
+      <td>75+3</td>
+      <td>21+3</td>
+      <td>https://cdn.sofifa.net/players/192/985/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/10/60.png</td>
+      <td>https://cdn.sofifa.net/flags/gb-eng.png</td>
+      <td>https://cdn.sofifa.net/teams/1325/60.png</td>
+      <td>https://cdn.sofifa.net/flags/be.png</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 110 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>At first glance, there seems to be a bunch of columns missing (truncated) from the <code>head()</code> output. Let's see how many columns we should have by running <code>df.shape</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(19239, 110)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>df.shape</code> tells us how many rows and how may columns are in our dataframe. We are definitely not seeing all 110 columns in the <code>head()</code> output. That's ok, we can set it to show all columns by using <code>pd.set_option()</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's see if it worked...</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sofifa_id</th>
+      <th>player_url</th>
+      <th>short_name</th>
+      <th>long_name</th>
+      <th>player_positions</th>
+      <th>overall</th>
+      <th>potential</th>
+      <th>value_eur</th>
+      <th>wage_eur</th>
+      <th>age</th>
+      <th>dob</th>
+      <th>height_cm</th>
+      <th>weight_kg</th>
+      <th>club_team_id</th>
+      <th>club_name</th>
+      <th>league_name</th>
+      <th>league_level</th>
+      <th>club_position</th>
+      <th>club_jersey_number</th>
+      <th>club_loaned_from</th>
+      <th>club_joined</th>
+      <th>club_contract_valid_until</th>
+      <th>nationality_id</th>
+      <th>nationality_name</th>
+      <th>nation_team_id</th>
+      <th>nation_position</th>
+      <th>nation_jersey_number</th>
+      <th>preferred_foot</th>
+      <th>weak_foot</th>
+      <th>skill_moves</th>
+      <th>international_reputation</th>
+      <th>work_rate</th>
+      <th>body_type</th>
+      <th>real_face</th>
+      <th>release_clause_eur</th>
+      <th>player_tags</th>
+      <th>player_traits</th>
+      <th>pace</th>
+      <th>shooting</th>
+      <th>passing</th>
+      <th>dribbling</th>
+      <th>defending</th>
+      <th>physic</th>
+      <th>attacking_crossing</th>
+      <th>attacking_finishing</th>
+      <th>attacking_heading_accuracy</th>
+      <th>attacking_short_passing</th>
+      <th>attacking_volleys</th>
+      <th>skill_dribbling</th>
+      <th>skill_curve</th>
+      <th>skill_fk_accuracy</th>
+      <th>skill_long_passing</th>
+      <th>skill_ball_control</th>
+      <th>movement_acceleration</th>
+      <th>movement_sprint_speed</th>
+      <th>movement_agility</th>
+      <th>movement_reactions</th>
+      <th>movement_balance</th>
+      <th>power_shot_power</th>
+      <th>power_jumping</th>
+      <th>power_stamina</th>
+      <th>power_strength</th>
+      <th>power_long_shots</th>
+      <th>mentality_aggression</th>
+      <th>mentality_interceptions</th>
+      <th>mentality_positioning</th>
+      <th>mentality_vision</th>
+      <th>mentality_penalties</th>
+      <th>mentality_composure</th>
+      <th>defending_marking_awareness</th>
+      <th>defending_standing_tackle</th>
+      <th>defending_sliding_tackle</th>
+      <th>goalkeeping_diving</th>
+      <th>goalkeeping_handling</th>
+      <th>goalkeeping_kicking</th>
+      <th>goalkeeping_positioning</th>
+      <th>goalkeeping_reflexes</th>
+      <th>goalkeeping_speed</th>
+      <th>ls</th>
+      <th>st</th>
+      <th>rs</th>
+      <th>lw</th>
+      <th>lf</th>
+      <th>cf</th>
+      <th>rf</th>
+      <th>rw</th>
+      <th>lam</th>
+      <th>cam</th>
+      <th>ram</th>
+      <th>lm</th>
+      <th>lcm</th>
+      <th>cm</th>
+      <th>rcm</th>
+      <th>rm</th>
+      <th>lwb</th>
+      <th>ldm</th>
+      <th>cdm</th>
+      <th>rdm</th>
+      <th>rwb</th>
+      <th>lb</th>
+      <th>lcb</th>
+      <th>cb</th>
+      <th>rcb</th>
+      <th>rb</th>
+      <th>gk</th>
+      <th>player_face_url</th>
+      <th>club_logo_url</th>
+      <th>club_flag_url</th>
+      <th>nation_logo_url</th>
+      <th>nation_flag_url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>158023</td>
+      <td>https://sofifa.com/player/158023/lionel-messi/...</td>
+      <td>L. Messi</td>
+      <td>Lionel Andrés Messi Cuccittini</td>
+      <td>RW, ST, CF</td>
+      <td>93</td>
+      <td>93</td>
+      <td>78000000.0</td>
+      <td>320000.0</td>
+      <td>34</td>
+      <td>1987-06-24</td>
+      <td>170</td>
+      <td>72</td>
+      <td>73.0</td>
+      <td>Paris Saint-Germain</td>
+      <td>French Ligue 1</td>
+      <td>1.0</td>
+      <td>RW</td>
+      <td>30.0</td>
+      <td>NaN</td>
+      <td>2021-08-10</td>
+      <td>2023.0</td>
+      <td>52</td>
+      <td>Argentina</td>
+      <td>1369.0</td>
+      <td>RW</td>
+      <td>10.0</td>
+      <td>Left</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+      <td>Medium/Low</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>144300000.0</td>
+      <td>#Dribbler, #Distance Shooter, #FK Specialist, ...</td>
+      <td>Finesse Shot, Long Shot Taker (AI), Playmaker ...</td>
+      <td>85.0</td>
+      <td>92.0</td>
+      <td>91.0</td>
+      <td>95.0</td>
+      <td>34.0</td>
+      <td>65.0</td>
+      <td>85</td>
+      <td>95</td>
+      <td>70</td>
+      <td>91</td>
+      <td>88</td>
+      <td>96</td>
+      <td>93</td>
+      <td>94</td>
+      <td>91</td>
+      <td>96</td>
+      <td>91</td>
+      <td>80</td>
+      <td>91</td>
+      <td>94</td>
+      <td>95</td>
+      <td>86</td>
+      <td>68</td>
+      <td>72</td>
+      <td>69</td>
+      <td>94</td>
+      <td>44</td>
+      <td>40</td>
+      <td>93</td>
+      <td>95</td>
+      <td>75</td>
+      <td>96</td>
+      <td>20</td>
+      <td>35</td>
+      <td>24</td>
+      <td>6</td>
+      <td>11</td>
+      <td>15</td>
+      <td>14</td>
+      <td>8</td>
+      <td>NaN</td>
+      <td>89+3</td>
+      <td>89+3</td>
+      <td>89+3</td>
+      <td>92</td>
+      <td>93</td>
+      <td>93</td>
+      <td>93</td>
+      <td>92</td>
+      <td>93</td>
+      <td>93</td>
+      <td>93</td>
+      <td>91+2</td>
+      <td>87+3</td>
+      <td>87+3</td>
+      <td>87+3</td>
+      <td>91+2</td>
+      <td>66+3</td>
+      <td>64+3</td>
+      <td>64+3</td>
+      <td>64+3</td>
+      <td>66+3</td>
+      <td>61+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>61+3</td>
+      <td>19+3</td>
+      <td>https://cdn.sofifa.net/players/158/023/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/73/60.png</td>
+      <td>https://cdn.sofifa.net/flags/fr.png</td>
+      <td>https://cdn.sofifa.net/teams/1369/60.png</td>
+      <td>https://cdn.sofifa.net/flags/ar.png</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>188545</td>
+      <td>https://sofifa.com/player/188545/robert-lewand...</td>
+      <td>R. Lewandowski</td>
+      <td>Robert Lewandowski</td>
+      <td>ST</td>
+      <td>92</td>
+      <td>92</td>
+      <td>119500000.0</td>
+      <td>270000.0</td>
+      <td>32</td>
+      <td>1988-08-21</td>
+      <td>185</td>
+      <td>81</td>
+      <td>21.0</td>
+      <td>FC Bayern München</td>
+      <td>German 1. Bundesliga</td>
+      <td>1.0</td>
+      <td>ST</td>
+      <td>9.0</td>
+      <td>NaN</td>
+      <td>2014-07-01</td>
+      <td>2023.0</td>
+      <td>37</td>
+      <td>Poland</td>
+      <td>1353.0</td>
+      <td>RS</td>
+      <td>9.0</td>
+      <td>Right</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+      <td>High/Medium</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>197200000.0</td>
+      <td>#Aerial Threat, #Distance Shooter, #Clinical F...</td>
+      <td>Solid Player, Finesse Shot, Outside Foot Shot,...</td>
+      <td>78.0</td>
+      <td>92.0</td>
+      <td>79.0</td>
+      <td>86.0</td>
+      <td>44.0</td>
+      <td>82.0</td>
+      <td>71</td>
+      <td>95</td>
+      <td>90</td>
+      <td>85</td>
+      <td>89</td>
+      <td>85</td>
+      <td>79</td>
+      <td>85</td>
+      <td>70</td>
+      <td>88</td>
+      <td>77</td>
+      <td>79</td>
+      <td>77</td>
+      <td>93</td>
+      <td>82</td>
+      <td>90</td>
+      <td>85</td>
+      <td>76</td>
+      <td>86</td>
+      <td>87</td>
+      <td>81</td>
+      <td>49</td>
+      <td>95</td>
+      <td>81</td>
+      <td>90</td>
+      <td>88</td>
+      <td>35</td>
+      <td>42</td>
+      <td>19</td>
+      <td>15</td>
+      <td>6</td>
+      <td>12</td>
+      <td>8</td>
+      <td>10</td>
+      <td>NaN</td>
+      <td>90+2</td>
+      <td>90+2</td>
+      <td>90+2</td>
+      <td>85</td>
+      <td>88</td>
+      <td>88</td>
+      <td>88</td>
+      <td>85</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>84+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>84+3</td>
+      <td>64+3</td>
+      <td>66+3</td>
+      <td>66+3</td>
+      <td>66+3</td>
+      <td>64+3</td>
+      <td>61+3</td>
+      <td>60+3</td>
+      <td>60+3</td>
+      <td>60+3</td>
+      <td>61+3</td>
+      <td>19+3</td>
+      <td>https://cdn.sofifa.net/players/188/545/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/21/60.png</td>
+      <td>https://cdn.sofifa.net/flags/de.png</td>
+      <td>https://cdn.sofifa.net/teams/1353/60.png</td>
+      <td>https://cdn.sofifa.net/flags/pl.png</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20801</td>
+      <td>https://sofifa.com/player/20801/c-ronaldo-dos-...</td>
+      <td>Cristiano Ronaldo</td>
+      <td>Cristiano Ronaldo dos Santos Aveiro</td>
+      <td>ST, LW</td>
+      <td>91</td>
+      <td>91</td>
+      <td>45000000.0</td>
+      <td>270000.0</td>
+      <td>36</td>
+      <td>1985-02-05</td>
+      <td>187</td>
+      <td>83</td>
+      <td>11.0</td>
+      <td>Manchester United</td>
+      <td>English Premier League</td>
+      <td>1.0</td>
+      <td>ST</td>
+      <td>7.0</td>
+      <td>NaN</td>
+      <td>2021-08-27</td>
+      <td>2023.0</td>
+      <td>38</td>
+      <td>Portugal</td>
+      <td>1354.0</td>
+      <td>ST</td>
+      <td>7.0</td>
+      <td>Right</td>
+      <td>4</td>
+      <td>5</td>
+      <td>5</td>
+      <td>High/Low</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>83300000.0</td>
+      <td>#Aerial Threat, #Dribbler, #Distance Shooter, ...</td>
+      <td>Power Free-Kick, Flair, Long Shot Taker (AI), ...</td>
+      <td>87.0</td>
+      <td>94.0</td>
+      <td>80.0</td>
+      <td>88.0</td>
+      <td>34.0</td>
+      <td>75.0</td>
+      <td>87</td>
+      <td>95</td>
+      <td>90</td>
+      <td>80</td>
+      <td>86</td>
+      <td>88</td>
+      <td>81</td>
+      <td>84</td>
+      <td>77</td>
+      <td>88</td>
+      <td>85</td>
+      <td>88</td>
+      <td>86</td>
+      <td>94</td>
+      <td>74</td>
+      <td>94</td>
+      <td>95</td>
+      <td>77</td>
+      <td>77</td>
+      <td>93</td>
+      <td>63</td>
+      <td>29</td>
+      <td>95</td>
+      <td>76</td>
+      <td>88</td>
+      <td>95</td>
+      <td>24</td>
+      <td>32</td>
+      <td>24</td>
+      <td>7</td>
+      <td>11</td>
+      <td>15</td>
+      <td>14</td>
+      <td>11</td>
+      <td>NaN</td>
+      <td>90+1</td>
+      <td>90+1</td>
+      <td>90+1</td>
+      <td>88</td>
+      <td>89</td>
+      <td>89</td>
+      <td>89</td>
+      <td>88</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>78+3</td>
+      <td>78+3</td>
+      <td>78+3</td>
+      <td>86+3</td>
+      <td>63+3</td>
+      <td>59+3</td>
+      <td>59+3</td>
+      <td>59+3</td>
+      <td>63+3</td>
+      <td>60+3</td>
+      <td>53+3</td>
+      <td>53+3</td>
+      <td>53+3</td>
+      <td>60+3</td>
+      <td>20+3</td>
+      <td>https://cdn.sofifa.net/players/020/801/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/11/60.png</td>
+      <td>https://cdn.sofifa.net/flags/gb-eng.png</td>
+      <td>https://cdn.sofifa.net/teams/1354/60.png</td>
+      <td>https://cdn.sofifa.net/flags/pt.png</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>190871</td>
+      <td>https://sofifa.com/player/190871/neymar-da-sil...</td>
+      <td>Neymar Jr</td>
+      <td>Neymar da Silva Santos Júnior</td>
+      <td>LW, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>129000000.0</td>
+      <td>270000.0</td>
+      <td>29</td>
+      <td>1992-02-05</td>
+      <td>175</td>
+      <td>68</td>
+      <td>73.0</td>
+      <td>Paris Saint-Germain</td>
+      <td>French Ligue 1</td>
+      <td>1.0</td>
+      <td>LW</td>
+      <td>10.0</td>
+      <td>NaN</td>
+      <td>2017-08-03</td>
+      <td>2025.0</td>
+      <td>54</td>
+      <td>Brazil</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Right</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>High/Medium</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>238700000.0</td>
+      <td>#Speedster, #Dribbler, #Playmaker, #FK Special...</td>
+      <td>Injury Prone, Flair, Speed Dribbler (AI), Play...</td>
+      <td>91.0</td>
+      <td>83.0</td>
+      <td>86.0</td>
+      <td>94.0</td>
+      <td>37.0</td>
+      <td>63.0</td>
+      <td>85</td>
+      <td>83</td>
+      <td>63</td>
+      <td>86</td>
+      <td>86</td>
+      <td>95</td>
+      <td>88</td>
+      <td>87</td>
+      <td>81</td>
+      <td>95</td>
+      <td>93</td>
+      <td>89</td>
+      <td>96</td>
+      <td>89</td>
+      <td>84</td>
+      <td>80</td>
+      <td>64</td>
+      <td>81</td>
+      <td>53</td>
+      <td>81</td>
+      <td>63</td>
+      <td>37</td>
+      <td>86</td>
+      <td>90</td>
+      <td>93</td>
+      <td>93</td>
+      <td>35</td>
+      <td>32</td>
+      <td>29</td>
+      <td>9</td>
+      <td>9</td>
+      <td>15</td>
+      <td>15</td>
+      <td>11</td>
+      <td>NaN</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>90</td>
+      <td>88</td>
+      <td>88</td>
+      <td>88</td>
+      <td>90</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>82+3</td>
+      <td>82+3</td>
+      <td>82+3</td>
+      <td>89+2</td>
+      <td>67+3</td>
+      <td>63+3</td>
+      <td>63+3</td>
+      <td>63+3</td>
+      <td>67+3</td>
+      <td>62+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>62+3</td>
+      <td>20+3</td>
+      <td>https://cdn.sofifa.net/players/190/871/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/73/60.png</td>
+      <td>https://cdn.sofifa.net/flags/fr.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/br.png</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>192985</td>
+      <td>https://sofifa.com/player/192985/kevin-de-bruy...</td>
+      <td>K. De Bruyne</td>
+      <td>Kevin De Bruyne</td>
+      <td>CM, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>125500000.0</td>
+      <td>350000.0</td>
+      <td>30</td>
+      <td>1991-06-28</td>
+      <td>181</td>
+      <td>70</td>
+      <td>10.0</td>
+      <td>Manchester City</td>
+      <td>English Premier League</td>
+      <td>1.0</td>
+      <td>RCM</td>
+      <td>17.0</td>
+      <td>NaN</td>
+      <td>2015-08-30</td>
+      <td>2025.0</td>
+      <td>7</td>
+      <td>Belgium</td>
+      <td>1325.0</td>
+      <td>RCM</td>
+      <td>7.0</td>
+      <td>Right</td>
+      <td>5</td>
+      <td>4</td>
+      <td>4</td>
+      <td>High/High</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>232200000.0</td>
+      <td>#Dribbler, #Playmaker, #Engine, #Distance Shoo...</td>
+      <td>Injury Prone, Leadership, Early Crosser, Long ...</td>
+      <td>76.0</td>
+      <td>86.0</td>
+      <td>93.0</td>
+      <td>88.0</td>
+      <td>64.0</td>
+      <td>78.0</td>
+      <td>94</td>
+      <td>82</td>
+      <td>55</td>
+      <td>94</td>
+      <td>82</td>
+      <td>88</td>
+      <td>85</td>
+      <td>83</td>
+      <td>93</td>
+      <td>91</td>
+      <td>76</td>
+      <td>76</td>
+      <td>79</td>
+      <td>91</td>
+      <td>78</td>
+      <td>91</td>
+      <td>63</td>
+      <td>89</td>
+      <td>74</td>
+      <td>91</td>
+      <td>76</td>
+      <td>66</td>
+      <td>88</td>
+      <td>94</td>
+      <td>83</td>
+      <td>89</td>
+      <td>68</td>
+      <td>65</td>
+      <td>53</td>
+      <td>15</td>
+      <td>13</td>
+      <td>5</td>
+      <td>10</td>
+      <td>13</td>
+      <td>NaN</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>88</td>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+      <td>88</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>79+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>79+3</td>
+      <td>75+3</td>
+      <td>69+3</td>
+      <td>69+3</td>
+      <td>69+3</td>
+      <td>75+3</td>
+      <td>21+3</td>
+      <td>https://cdn.sofifa.net/players/192/985/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/10/60.png</td>
+      <td>https://cdn.sofifa.net/flags/gb-eng.png</td>
+      <td>https://cdn.sofifa.net/teams/1325/60.png</td>
+      <td>https://cdn.sofifa.net/flags/be.png</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That looks more like 110 columns, however it is hard to read all the column names. Let's use <code>df.info()</code>, it will show us all the column names, their index, and also their datatype. This will come in handy later.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 19239 entries, 0 to 19238
+Data columns (total 110 columns):
+ #    Column                       Dtype  
+---   ------                       -----  
+ 0    sofifa_id                    int64  
+ 1    player_url                   object 
+ 2    short_name                   object 
+ 3    long_name                    object 
+ 4    player_positions             object 
+ 5    overall                      int64  
+ 6    potential                    int64  
+ 7    value_eur                    float64
+ 8    wage_eur                     float64
+ 9    age                          int64  
+ 10   dob                          object 
+ 11   height_cm                    int64  
+ 12   weight_kg                    int64  
+ 13   club_team_id                 float64
+ 14   club_name                    object 
+ 15   league_name                  object 
+ 16   league_level                 float64
+ 17   club_position                object 
+ 18   club_jersey_number           float64
+ 19   club_loaned_from             object 
+ 20   club_joined                  object 
+ 21   club_contract_valid_until    float64
+ 22   nationality_id               int64  
+ 23   nationality_name             object 
+ 24   nation_team_id               float64
+ 25   nation_position              object 
+ 26   nation_jersey_number         float64
+ 27   preferred_foot               object 
+ 28   weak_foot                    int64  
+ 29   skill_moves                  int64  
+ 30   international_reputation     int64  
+ 31   work_rate                    object 
+ 32   body_type                    object 
+ 33   real_face                    object 
+ 34   release_clause_eur           float64
+ 35   player_tags                  object 
+ 36   player_traits                object 
+ 37   pace                         float64
+ 38   shooting                     float64
+ 39   passing                      float64
+ 40   dribbling                    float64
+ 41   defending                    float64
+ 42   physic                       float64
+ 43   attacking_crossing           int64  
+ 44   attacking_finishing          int64  
+ 45   attacking_heading_accuracy   int64  
+ 46   attacking_short_passing      int64  
+ 47   attacking_volleys            int64  
+ 48   skill_dribbling              int64  
+ 49   skill_curve                  int64  
+ 50   skill_fk_accuracy            int64  
+ 51   skill_long_passing           int64  
+ 52   skill_ball_control           int64  
+ 53   movement_acceleration        int64  
+ 54   movement_sprint_speed        int64  
+ 55   movement_agility             int64  
+ 56   movement_reactions           int64  
+ 57   movement_balance             int64  
+ 58   power_shot_power             int64  
+ 59   power_jumping                int64  
+ 60   power_stamina                int64  
+ 61   power_strength               int64  
+ 62   power_long_shots             int64  
+ 63   mentality_aggression         int64  
+ 64   mentality_interceptions      int64  
+ 65   mentality_positioning        int64  
+ 66   mentality_vision             int64  
+ 67   mentality_penalties          int64  
+ 68   mentality_composure          int64  
+ 69   defending_marking_awareness  int64  
+ 70   defending_standing_tackle    int64  
+ 71   defending_sliding_tackle     int64  
+ 72   goalkeeping_diving           int64  
+ 73   goalkeeping_handling         int64  
+ 74   goalkeeping_kicking          int64  
+ 75   goalkeeping_positioning      int64  
+ 76   goalkeeping_reflexes         int64  
+ 77   goalkeeping_speed            float64
+ 78   ls                           object 
+ 79   st                           object 
+ 80   rs                           object 
+ 81   lw                           object 
+ 82   lf                           object 
+ 83   cf                           object 
+ 84   rf                           object 
+ 85   rw                           object 
+ 86   lam                          object 
+ 87   cam                          object 
+ 88   ram                          object 
+ 89   lm                           object 
+ 90   lcm                          object 
+ 91   cm                           object 
+ 92   rcm                          object 
+ 93   rm                           object 
+ 94   lwb                          object 
+ 95   ldm                          object 
+ 96   cdm                          object 
+ 97   rdm                          object 
+ 98   rwb                          object 
+ 99   lb                           object 
+ 100  lcb                          object 
+ 101  cb                           object 
+ 102  rcb                          object 
+ 103  rb                           object 
+ 104  gk                           object 
+ 105  player_face_url              object 
+ 106  club_logo_url                object 
+ 107  club_flag_url                object 
+ 108  nation_logo_url              object 
+ 109  nation_flag_url              object 
+dtypes: float64(16), int64(44), object(50)
+memory usage: 16.1+ MB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-is-a-Pandas-DataFrame-made-of?">What is a Pandas DataFrame made of?<a class="anchor-link" href="#What-is-a-Pandas-DataFrame-made-of?"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A DataFrame is made up of both rows and columns. Each column has an index and a name. Looking at the <code>df.info</code> output above, we can see the first column has an index of 0 and the name is "sofifa_id".</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Selecting-Columns-by-Name">Selecting Columns by Name<a class="anchor-link" href="#Selecting-Columns-by-Name"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using our list of column names above, we can easily return a single column.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name1_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">short_name</span>
+
+<span class="n">name1_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0                  L. Messi
+1            R. Lewandowski
+2         Cristiano Ronaldo
+3                 Neymar Jr
+4              K. De Bruyne
+                ...        
+19234             Song Defu
+19235             C. Porter
+19236              N. Logue
+19237             L. Rudden
+19238    E. Lalchhanchhuaha
+Name: short_name, Length: 19239, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name2_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;short_name&#39;</span><span class="p">]</span>
+
+<span class="n">name2_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0                  L. Messi
+1            R. Lewandowski
+2         Cristiano Ronaldo
+3                 Neymar Jr
+4              K. De Bruyne
+                ...        
+19234             Song Defu
+19235             C. Porter
+19236              N. Logue
+19237             L. Rudden
+19238    E. Lalchhanchhuaha
+Name: short_name, Length: 19239, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These two methods are simple enough, however we were hoping to create new DataFrames. Let's use <code>type()</code> to check our new objects type.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">name1_df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.series.Series</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">name2_df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.series.Series</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that both methods have actually created a Pandas Series <code>pandas.core.series.Series</code>. In order to create a single column DataFrame, we need to use double brackets.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name3_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;short_name&#39;</span><span class="p">]]</span>
+
+<span class="n">name3_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now when we run <code>type()</code> we should get a DataFrame.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">name3_df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.frame.DataFrame</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can use this same syntax to select multiple columns</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name_club_age_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;short_name&#39;</span><span class="p">,</span> <span class="s1">&#39;club_name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">]]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">name_club_age_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">name_club_age_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+      <th>club_name</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+      <td>Paris Saint-Germain</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+      <td>FC Bayern München</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+      <td>Manchester United</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+      <td>Paris Saint-Germain</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+      <td>Manchester City</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+      <td>Wuhan FC</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+      <td>Derry City</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+      <td>Finn Harps</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+      <td>Finn Harps</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+      <td>NorthEast United FC</td>
+      <td>19</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A benefit of stipulating each column by name is the ability to re-order columns.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name_age_club_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;short_name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;club_name&#39;</span><span class="p">]]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">name_age_club_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">name_age_club_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+      <th>age</th>
+      <th>club_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+      <td>34</td>
+      <td>Paris Saint-Germain</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+      <td>32</td>
+      <td>FC Bayern München</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+      <td>36</td>
+      <td>Manchester United</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+      <td>29</td>
+      <td>Paris Saint-Germain</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+      <td>30</td>
+      <td>Manchester City</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+      <td>22</td>
+      <td>Wuhan FC</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+      <td>19</td>
+      <td>Derry City</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+      <td>21</td>
+      <td>Finn Harps</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+      <td>19</td>
+      <td>Finn Harps</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+      <td>19</td>
+      <td>NorthEast United FC</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Selecting-Columns-by-Data-Type">Selecting Columns by Data Type<a class="anchor-link" href="#Selecting-Columns-by-Data-Type"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You may find yourself in a position where you wish to create a new DataFrame using only columns of a particular data type such as integers or floats. Let's run <code>df.info</code> again to see the data types of all our columns.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 19239 entries, 0 to 19238
+Data columns (total 110 columns):
+ #    Column                       Dtype  
+---   ------                       -----  
+ 0    sofifa_id                    int64  
+ 1    player_url                   object 
+ 2    short_name                   object 
+ 3    long_name                    object 
+ 4    player_positions             object 
+ 5    overall                      int64  
+ 6    potential                    int64  
+ 7    value_eur                    float64
+ 8    wage_eur                     float64
+ 9    age                          int64  
+ 10   dob                          object 
+ 11   height_cm                    int64  
+ 12   weight_kg                    int64  
+ 13   club_team_id                 float64
+ 14   club_name                    object 
+ 15   league_name                  object 
+ 16   league_level                 float64
+ 17   club_position                object 
+ 18   club_jersey_number           float64
+ 19   club_loaned_from             object 
+ 20   club_joined                  object 
+ 21   club_contract_valid_until    float64
+ 22   nationality_id               int64  
+ 23   nationality_name             object 
+ 24   nation_team_id               float64
+ 25   nation_position              object 
+ 26   nation_jersey_number         float64
+ 27   preferred_foot               object 
+ 28   weak_foot                    int64  
+ 29   skill_moves                  int64  
+ 30   international_reputation     int64  
+ 31   work_rate                    object 
+ 32   body_type                    object 
+ 33   real_face                    object 
+ 34   release_clause_eur           float64
+ 35   player_tags                  object 
+ 36   player_traits                object 
+ 37   pace                         float64
+ 38   shooting                     float64
+ 39   passing                      float64
+ 40   dribbling                    float64
+ 41   defending                    float64
+ 42   physic                       float64
+ 43   attacking_crossing           int64  
+ 44   attacking_finishing          int64  
+ 45   attacking_heading_accuracy   int64  
+ 46   attacking_short_passing      int64  
+ 47   attacking_volleys            int64  
+ 48   skill_dribbling              int64  
+ 49   skill_curve                  int64  
+ 50   skill_fk_accuracy            int64  
+ 51   skill_long_passing           int64  
+ 52   skill_ball_control           int64  
+ 53   movement_acceleration        int64  
+ 54   movement_sprint_speed        int64  
+ 55   movement_agility             int64  
+ 56   movement_reactions           int64  
+ 57   movement_balance             int64  
+ 58   power_shot_power             int64  
+ 59   power_jumping                int64  
+ 60   power_stamina                int64  
+ 61   power_strength               int64  
+ 62   power_long_shots             int64  
+ 63   mentality_aggression         int64  
+ 64   mentality_interceptions      int64  
+ 65   mentality_positioning        int64  
+ 66   mentality_vision             int64  
+ 67   mentality_penalties          int64  
+ 68   mentality_composure          int64  
+ 69   defending_marking_awareness  int64  
+ 70   defending_standing_tackle    int64  
+ 71   defending_sliding_tackle     int64  
+ 72   goalkeeping_diving           int64  
+ 73   goalkeeping_handling         int64  
+ 74   goalkeeping_kicking          int64  
+ 75   goalkeeping_positioning      int64  
+ 76   goalkeeping_reflexes         int64  
+ 77   goalkeeping_speed            float64
+ 78   ls                           object 
+ 79   st                           object 
+ 80   rs                           object 
+ 81   lw                           object 
+ 82   lf                           object 
+ 83   cf                           object 
+ 84   rf                           object 
+ 85   rw                           object 
+ 86   lam                          object 
+ 87   cam                          object 
+ 88   ram                          object 
+ 89   lm                           object 
+ 90   lcm                          object 
+ 91   cm                           object 
+ 92   rcm                          object 
+ 93   rm                           object 
+ 94   lwb                          object 
+ 95   ldm                          object 
+ 96   cdm                          object 
+ 97   rdm                          object 
+ 98   rwb                          object 
+ 99   lb                           object 
+ 100  lcb                          object 
+ 101  cb                           object 
+ 102  rcb                          object 
+ 103  rb                           object 
+ 104  gk                           object 
+ 105  player_face_url              object 
+ 106  club_logo_url                object 
+ 107  club_flag_url                object 
+ 108  nation_logo_url              object 
+ 109  nation_flag_url              object 
+dtypes: float64(16), int64(44), object(50)
+memory usage: 16.1+ MB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The output tells us we have 16 columns that are float64, 44 columns that are int64 and 50 columns that are object type. We can use <code>select_dtypes</code> to choose columns based on their data types.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">float64_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">float64_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">float64_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value_eur</th>
+      <th>wage_eur</th>
+      <th>club_team_id</th>
+      <th>league_level</th>
+      <th>club_jersey_number</th>
+      <th>club_contract_valid_until</th>
+      <th>nation_team_id</th>
+      <th>nation_jersey_number</th>
+      <th>release_clause_eur</th>
+      <th>pace</th>
+      <th>shooting</th>
+      <th>passing</th>
+      <th>dribbling</th>
+      <th>defending</th>
+      <th>physic</th>
+      <th>goalkeeping_speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>78000000.0</td>
+      <td>320000.0</td>
+      <td>73.0</td>
+      <td>1.0</td>
+      <td>30.0</td>
+      <td>2023.0</td>
+      <td>1369.0</td>
+      <td>10.0</td>
+      <td>144300000.0</td>
+      <td>85.0</td>
+      <td>92.0</td>
+      <td>91.0</td>
+      <td>95.0</td>
+      <td>34.0</td>
+      <td>65.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>119500000.0</td>
+      <td>270000.0</td>
+      <td>21.0</td>
+      <td>1.0</td>
+      <td>9.0</td>
+      <td>2023.0</td>
+      <td>1353.0</td>
+      <td>9.0</td>
+      <td>197200000.0</td>
+      <td>78.0</td>
+      <td>92.0</td>
+      <td>79.0</td>
+      <td>86.0</td>
+      <td>44.0</td>
+      <td>82.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>45000000.0</td>
+      <td>270000.0</td>
+      <td>11.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>2023.0</td>
+      <td>1354.0</td>
+      <td>7.0</td>
+      <td>83300000.0</td>
+      <td>87.0</td>
+      <td>94.0</td>
+      <td>80.0</td>
+      <td>88.0</td>
+      <td>34.0</td>
+      <td>75.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>129000000.0</td>
+      <td>270000.0</td>
+      <td>73.0</td>
+      <td>1.0</td>
+      <td>10.0</td>
+      <td>2025.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>238700000.0</td>
+      <td>91.0</td>
+      <td>83.0</td>
+      <td>86.0</td>
+      <td>94.0</td>
+      <td>37.0</td>
+      <td>63.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>125500000.0</td>
+      <td>350000.0</td>
+      <td>10.0</td>
+      <td>1.0</td>
+      <td>17.0</td>
+      <td>2025.0</td>
+      <td>1325.0</td>
+      <td>7.0</td>
+      <td>232200000.0</td>
+      <td>76.0</td>
+      <td>86.0</td>
+      <td>93.0</td>
+      <td>88.0</td>
+      <td>64.0</td>
+      <td>78.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>70000.0</td>
+      <td>1000.0</td>
+      <td>112541.0</td>
+      <td>1.0</td>
+      <td>36.0</td>
+      <td>2021.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>114000.0</td>
+      <td>58.0</td>
+      <td>35.0</td>
+      <td>46.0</td>
+      <td>48.0</td>
+      <td>42.0</td>
+      <td>49.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>110000.0</td>
+      <td>500.0</td>
+      <td>445.0</td>
+      <td>1.0</td>
+      <td>27.0</td>
+      <td>2021.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>193000.0</td>
+      <td>59.0</td>
+      <td>39.0</td>
+      <td>50.0</td>
+      <td>46.0</td>
+      <td>41.0</td>
+      <td>51.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>100000.0</td>
+      <td>500.0</td>
+      <td>111131.0</td>
+      <td>1.0</td>
+      <td>31.0</td>
+      <td>2021.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>175000.0</td>
+      <td>60.0</td>
+      <td>37.0</td>
+      <td>45.0</td>
+      <td>49.0</td>
+      <td>41.0</td>
+      <td>52.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>110000.0</td>
+      <td>500.0</td>
+      <td>111131.0</td>
+      <td>1.0</td>
+      <td>12.0</td>
+      <td>2021.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>239000.0</td>
+      <td>68.0</td>
+      <td>46.0</td>
+      <td>36.0</td>
+      <td>48.0</td>
+      <td>15.0</td>
+      <td>42.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>110000.0</td>
+      <td>500.0</td>
+      <td>113040.0</td>
+      <td>1.0</td>
+      <td>13.0</td>
+      <td>2025.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>217000.0</td>
+      <td>68.0</td>
+      <td>38.0</td>
+      <td>45.0</td>
+      <td>48.0</td>
+      <td>36.0</td>
+      <td>48.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 16 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">object_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">object_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">object_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>player_url</th>
+      <th>short_name</th>
+      <th>long_name</th>
+      <th>player_positions</th>
+      <th>dob</th>
+      <th>club_name</th>
+      <th>league_name</th>
+      <th>club_position</th>
+      <th>club_loaned_from</th>
+      <th>club_joined</th>
+      <th>nationality_name</th>
+      <th>nation_position</th>
+      <th>preferred_foot</th>
+      <th>work_rate</th>
+      <th>body_type</th>
+      <th>real_face</th>
+      <th>player_tags</th>
+      <th>player_traits</th>
+      <th>ls</th>
+      <th>st</th>
+      <th>rs</th>
+      <th>lw</th>
+      <th>lf</th>
+      <th>cf</th>
+      <th>rf</th>
+      <th>rw</th>
+      <th>lam</th>
+      <th>cam</th>
+      <th>ram</th>
+      <th>lm</th>
+      <th>lcm</th>
+      <th>cm</th>
+      <th>rcm</th>
+      <th>rm</th>
+      <th>lwb</th>
+      <th>ldm</th>
+      <th>cdm</th>
+      <th>rdm</th>
+      <th>rwb</th>
+      <th>lb</th>
+      <th>lcb</th>
+      <th>cb</th>
+      <th>rcb</th>
+      <th>rb</th>
+      <th>gk</th>
+      <th>player_face_url</th>
+      <th>club_logo_url</th>
+      <th>club_flag_url</th>
+      <th>nation_logo_url</th>
+      <th>nation_flag_url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>https://sofifa.com/player/158023/lionel-messi/...</td>
+      <td>L. Messi</td>
+      <td>Lionel Andrés Messi Cuccittini</td>
+      <td>RW, ST, CF</td>
+      <td>1987-06-24</td>
+      <td>Paris Saint-Germain</td>
+      <td>French Ligue 1</td>
+      <td>RW</td>
+      <td>NaN</td>
+      <td>2021-08-10</td>
+      <td>Argentina</td>
+      <td>RW</td>
+      <td>Left</td>
+      <td>Medium/Low</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>#Dribbler, #Distance Shooter, #FK Specialist, ...</td>
+      <td>Finesse Shot, Long Shot Taker (AI), Playmaker ...</td>
+      <td>89+3</td>
+      <td>89+3</td>
+      <td>89+3</td>
+      <td>92</td>
+      <td>93</td>
+      <td>93</td>
+      <td>93</td>
+      <td>92</td>
+      <td>93</td>
+      <td>93</td>
+      <td>93</td>
+      <td>91+2</td>
+      <td>87+3</td>
+      <td>87+3</td>
+      <td>87+3</td>
+      <td>91+2</td>
+      <td>66+3</td>
+      <td>64+3</td>
+      <td>64+3</td>
+      <td>64+3</td>
+      <td>66+3</td>
+      <td>61+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>61+3</td>
+      <td>19+3</td>
+      <td>https://cdn.sofifa.net/players/158/023/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/73/60.png</td>
+      <td>https://cdn.sofifa.net/flags/fr.png</td>
+      <td>https://cdn.sofifa.net/teams/1369/60.png</td>
+      <td>https://cdn.sofifa.net/flags/ar.png</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>https://sofifa.com/player/188545/robert-lewand...</td>
+      <td>R. Lewandowski</td>
+      <td>Robert Lewandowski</td>
+      <td>ST</td>
+      <td>1988-08-21</td>
+      <td>FC Bayern München</td>
+      <td>German 1. Bundesliga</td>
+      <td>ST</td>
+      <td>NaN</td>
+      <td>2014-07-01</td>
+      <td>Poland</td>
+      <td>RS</td>
+      <td>Right</td>
+      <td>High/Medium</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>#Aerial Threat, #Distance Shooter, #Clinical F...</td>
+      <td>Solid Player, Finesse Shot, Outside Foot Shot,...</td>
+      <td>90+2</td>
+      <td>90+2</td>
+      <td>90+2</td>
+      <td>85</td>
+      <td>88</td>
+      <td>88</td>
+      <td>88</td>
+      <td>85</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>84+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>84+3</td>
+      <td>64+3</td>
+      <td>66+3</td>
+      <td>66+3</td>
+      <td>66+3</td>
+      <td>64+3</td>
+      <td>61+3</td>
+      <td>60+3</td>
+      <td>60+3</td>
+      <td>60+3</td>
+      <td>61+3</td>
+      <td>19+3</td>
+      <td>https://cdn.sofifa.net/players/188/545/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/21/60.png</td>
+      <td>https://cdn.sofifa.net/flags/de.png</td>
+      <td>https://cdn.sofifa.net/teams/1353/60.png</td>
+      <td>https://cdn.sofifa.net/flags/pl.png</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>https://sofifa.com/player/20801/c-ronaldo-dos-...</td>
+      <td>Cristiano Ronaldo</td>
+      <td>Cristiano Ronaldo dos Santos Aveiro</td>
+      <td>ST, LW</td>
+      <td>1985-02-05</td>
+      <td>Manchester United</td>
+      <td>English Premier League</td>
+      <td>ST</td>
+      <td>NaN</td>
+      <td>2021-08-27</td>
+      <td>Portugal</td>
+      <td>ST</td>
+      <td>Right</td>
+      <td>High/Low</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>#Aerial Threat, #Dribbler, #Distance Shooter, ...</td>
+      <td>Power Free-Kick, Flair, Long Shot Taker (AI), ...</td>
+      <td>90+1</td>
+      <td>90+1</td>
+      <td>90+1</td>
+      <td>88</td>
+      <td>89</td>
+      <td>89</td>
+      <td>89</td>
+      <td>88</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>86+3</td>
+      <td>78+3</td>
+      <td>78+3</td>
+      <td>78+3</td>
+      <td>86+3</td>
+      <td>63+3</td>
+      <td>59+3</td>
+      <td>59+3</td>
+      <td>59+3</td>
+      <td>63+3</td>
+      <td>60+3</td>
+      <td>53+3</td>
+      <td>53+3</td>
+      <td>53+3</td>
+      <td>60+3</td>
+      <td>20+3</td>
+      <td>https://cdn.sofifa.net/players/020/801/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/11/60.png</td>
+      <td>https://cdn.sofifa.net/flags/gb-eng.png</td>
+      <td>https://cdn.sofifa.net/teams/1354/60.png</td>
+      <td>https://cdn.sofifa.net/flags/pt.png</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>https://sofifa.com/player/190871/neymar-da-sil...</td>
+      <td>Neymar Jr</td>
+      <td>Neymar da Silva Santos Júnior</td>
+      <td>LW, CAM</td>
+      <td>1992-02-05</td>
+      <td>Paris Saint-Germain</td>
+      <td>French Ligue 1</td>
+      <td>LW</td>
+      <td>NaN</td>
+      <td>2017-08-03</td>
+      <td>Brazil</td>
+      <td>NaN</td>
+      <td>Right</td>
+      <td>High/Medium</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>#Speedster, #Dribbler, #Playmaker, #FK Special...</td>
+      <td>Injury Prone, Flair, Speed Dribbler (AI), Play...</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>90</td>
+      <td>88</td>
+      <td>88</td>
+      <td>88</td>
+      <td>90</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>82+3</td>
+      <td>82+3</td>
+      <td>82+3</td>
+      <td>89+2</td>
+      <td>67+3</td>
+      <td>63+3</td>
+      <td>63+3</td>
+      <td>63+3</td>
+      <td>67+3</td>
+      <td>62+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>50+3</td>
+      <td>62+3</td>
+      <td>20+3</td>
+      <td>https://cdn.sofifa.net/players/190/871/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/73/60.png</td>
+      <td>https://cdn.sofifa.net/flags/fr.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/br.png</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>https://sofifa.com/player/192985/kevin-de-bruy...</td>
+      <td>K. De Bruyne</td>
+      <td>Kevin De Bruyne</td>
+      <td>CM, CAM</td>
+      <td>1991-06-28</td>
+      <td>Manchester City</td>
+      <td>English Premier League</td>
+      <td>RCM</td>
+      <td>NaN</td>
+      <td>2015-08-30</td>
+      <td>Belgium</td>
+      <td>RCM</td>
+      <td>Right</td>
+      <td>High/High</td>
+      <td>Unique</td>
+      <td>Yes</td>
+      <td>#Dribbler, #Playmaker, #Engine, #Distance Shoo...</td>
+      <td>Injury Prone, Leadership, Early Crosser, Long ...</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>83+3</td>
+      <td>88</td>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+      <td>88</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>89+2</td>
+      <td>79+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>80+3</td>
+      <td>79+3</td>
+      <td>75+3</td>
+      <td>69+3</td>
+      <td>69+3</td>
+      <td>69+3</td>
+      <td>75+3</td>
+      <td>21+3</td>
+      <td>https://cdn.sofifa.net/players/192/985/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/10/60.png</td>
+      <td>https://cdn.sofifa.net/flags/gb-eng.png</td>
+      <td>https://cdn.sofifa.net/teams/1325/60.png</td>
+      <td>https://cdn.sofifa.net/flags/be.png</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>https://sofifa.com/player/261962/defu-song/220002</td>
+      <td>Song Defu</td>
+      <td>宋德福</td>
+      <td>CDM</td>
+      <td>1999-01-02</td>
+      <td>Wuhan FC</td>
+      <td>Chinese Super League</td>
+      <td>SUB</td>
+      <td>NaN</td>
+      <td>2021-04-01</td>
+      <td>China PR</td>
+      <td>NaN</td>
+      <td>Right</td>
+      <td>Medium/Medium</td>
+      <td>Lean (170-185)</td>
+      <td>No</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>44+2</td>
+      <td>44+2</td>
+      <td>44+2</td>
+      <td>46</td>
+      <td>45</td>
+      <td>45</td>
+      <td>45</td>
+      <td>46</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>47+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>47+2</td>
+      <td>48+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>48+2</td>
+      <td>48+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>48+2</td>
+      <td>15+2</td>
+      <td>https://cdn.sofifa.net/players/261/962/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/112541/60.png</td>
+      <td>https://cdn.sofifa.net/flags/cn.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/cn.png</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>https://sofifa.com/player/262040/caoimhin-port...</td>
+      <td>C. Porter</td>
+      <td>Caoimhin Porter</td>
+      <td>CM</td>
+      <td>2002-03-18</td>
+      <td>Derry City</td>
+      <td>Rep. Ireland Airtricity League</td>
+      <td>RES</td>
+      <td>NaN</td>
+      <td>2021-02-22</td>
+      <td>Republic of Ireland</td>
+      <td>NaN</td>
+      <td>Right</td>
+      <td>Medium/Medium</td>
+      <td>Lean (170-185)</td>
+      <td>No</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>47</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>47</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>49+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>49+2</td>
+      <td>49+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>49+2</td>
+      <td>48+2</td>
+      <td>44+2</td>
+      <td>44+2</td>
+      <td>44+2</td>
+      <td>48+2</td>
+      <td>14+2</td>
+      <td>https://cdn.sofifa.net/players/262/040/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/445/60.png</td>
+      <td>https://cdn.sofifa.net/flags/ie.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/ie.png</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>https://sofifa.com/player/262760/nathan-logue/...</td>
+      <td>N. Logue</td>
+      <td>Nathan Logue-Cunningham</td>
+      <td>CM</td>
+      <td>2000-02-07</td>
+      <td>Finn Harps</td>
+      <td>Rep. Ireland Airtricity League</td>
+      <td>RES</td>
+      <td>NaN</td>
+      <td>2021-06-18</td>
+      <td>Republic of Ireland</td>
+      <td>NaN</td>
+      <td>Right</td>
+      <td>Medium/Medium</td>
+      <td>Lean (170-185)</td>
+      <td>No</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>48+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>48+2</td>
+      <td>47+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>47+2</td>
+      <td>12+2</td>
+      <td>https://cdn.sofifa.net/players/262/760/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/111131/60.png</td>
+      <td>https://cdn.sofifa.net/flags/ie.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/ie.png</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>https://sofifa.com/player/262820/luke-rudden/2...</td>
+      <td>L. Rudden</td>
+      <td>Luke Rudden</td>
+      <td>ST</td>
+      <td>2002-04-23</td>
+      <td>Finn Harps</td>
+      <td>Rep. Ireland Airtricity League</td>
+      <td>RES</td>
+      <td>NaN</td>
+      <td>2021-06-18</td>
+      <td>Republic of Ireland</td>
+      <td>NaN</td>
+      <td>Right</td>
+      <td>Medium/Medium</td>
+      <td>Lean (170-185)</td>
+      <td>No</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>47</td>
+      <td>47</td>
+      <td>47</td>
+      <td>47</td>
+      <td>47</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>39+2</td>
+      <td>39+2</td>
+      <td>39+2</td>
+      <td>45+2</td>
+      <td>33+2</td>
+      <td>29+2</td>
+      <td>29+2</td>
+      <td>29+2</td>
+      <td>33+2</td>
+      <td>32+2</td>
+      <td>26+2</td>
+      <td>26+2</td>
+      <td>26+2</td>
+      <td>32+2</td>
+      <td>15+2</td>
+      <td>https://cdn.sofifa.net/players/262/820/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/111131/60.png</td>
+      <td>https://cdn.sofifa.net/flags/ie.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/ie.png</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>https://sofifa.com/player/264540/emanuel-lalch...</td>
+      <td>E. Lalchhanchhuaha</td>
+      <td>Emanuel Lalchhanchhuaha</td>
+      <td>CAM</td>
+      <td>2002-02-06</td>
+      <td>NorthEast United FC</td>
+      <td>Indian Super League</td>
+      <td>SUB</td>
+      <td>NaN</td>
+      <td>2021-08-31</td>
+      <td>India</td>
+      <td>NaN</td>
+      <td>Right</td>
+      <td>Medium/Medium</td>
+      <td>Lean (170-)</td>
+      <td>No</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>47</td>
+      <td>47</td>
+      <td>47</td>
+      <td>47</td>
+      <td>47</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>47+2</td>
+      <td>48+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>46+2</td>
+      <td>48+2</td>
+      <td>45+2</td>
+      <td>44+2</td>
+      <td>44+2</td>
+      <td>44+2</td>
+      <td>45+2</td>
+      <td>45+2</td>
+      <td>41+2</td>
+      <td>41+2</td>
+      <td>41+2</td>
+      <td>45+2</td>
+      <td>16+2</td>
+      <td>https://cdn.sofifa.net/players/264/540/22_120.png</td>
+      <td>https://cdn.sofifa.net/teams/113040/60.png</td>
+      <td>https://cdn.sofifa.net/flags/in.png</td>
+      <td>NaN</td>
+      <td>https://cdn.sofifa.net/flags/in.png</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 50 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">int64_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s1">&#39;int64&#39;</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">int64_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">int64_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sofifa_id</th>
+      <th>overall</th>
+      <th>potential</th>
+      <th>age</th>
+      <th>height_cm</th>
+      <th>weight_kg</th>
+      <th>nationality_id</th>
+      <th>weak_foot</th>
+      <th>skill_moves</th>
+      <th>international_reputation</th>
+      <th>attacking_crossing</th>
+      <th>attacking_finishing</th>
+      <th>attacking_heading_accuracy</th>
+      <th>attacking_short_passing</th>
+      <th>attacking_volleys</th>
+      <th>skill_dribbling</th>
+      <th>skill_curve</th>
+      <th>skill_fk_accuracy</th>
+      <th>skill_long_passing</th>
+      <th>skill_ball_control</th>
+      <th>movement_acceleration</th>
+      <th>movement_sprint_speed</th>
+      <th>movement_agility</th>
+      <th>movement_reactions</th>
+      <th>movement_balance</th>
+      <th>power_shot_power</th>
+      <th>power_jumping</th>
+      <th>power_stamina</th>
+      <th>power_strength</th>
+      <th>power_long_shots</th>
+      <th>mentality_aggression</th>
+      <th>mentality_interceptions</th>
+      <th>mentality_positioning</th>
+      <th>mentality_vision</th>
+      <th>mentality_penalties</th>
+      <th>mentality_composure</th>
+      <th>defending_marking_awareness</th>
+      <th>defending_standing_tackle</th>
+      <th>defending_sliding_tackle</th>
+      <th>goalkeeping_diving</th>
+      <th>goalkeeping_handling</th>
+      <th>goalkeeping_kicking</th>
+      <th>goalkeeping_positioning</th>
+      <th>goalkeeping_reflexes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>158023</td>
+      <td>93</td>
+      <td>93</td>
+      <td>34</td>
+      <td>170</td>
+      <td>72</td>
+      <td>52</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+      <td>85</td>
+      <td>95</td>
+      <td>70</td>
+      <td>91</td>
+      <td>88</td>
+      <td>96</td>
+      <td>93</td>
+      <td>94</td>
+      <td>91</td>
+      <td>96</td>
+      <td>91</td>
+      <td>80</td>
+      <td>91</td>
+      <td>94</td>
+      <td>95</td>
+      <td>86</td>
+      <td>68</td>
+      <td>72</td>
+      <td>69</td>
+      <td>94</td>
+      <td>44</td>
+      <td>40</td>
+      <td>93</td>
+      <td>95</td>
+      <td>75</td>
+      <td>96</td>
+      <td>20</td>
+      <td>35</td>
+      <td>24</td>
+      <td>6</td>
+      <td>11</td>
+      <td>15</td>
+      <td>14</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>188545</td>
+      <td>92</td>
+      <td>92</td>
+      <td>32</td>
+      <td>185</td>
+      <td>81</td>
+      <td>37</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+      <td>71</td>
+      <td>95</td>
+      <td>90</td>
+      <td>85</td>
+      <td>89</td>
+      <td>85</td>
+      <td>79</td>
+      <td>85</td>
+      <td>70</td>
+      <td>88</td>
+      <td>77</td>
+      <td>79</td>
+      <td>77</td>
+      <td>93</td>
+      <td>82</td>
+      <td>90</td>
+      <td>85</td>
+      <td>76</td>
+      <td>86</td>
+      <td>87</td>
+      <td>81</td>
+      <td>49</td>
+      <td>95</td>
+      <td>81</td>
+      <td>90</td>
+      <td>88</td>
+      <td>35</td>
+      <td>42</td>
+      <td>19</td>
+      <td>15</td>
+      <td>6</td>
+      <td>12</td>
+      <td>8</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20801</td>
+      <td>91</td>
+      <td>91</td>
+      <td>36</td>
+      <td>187</td>
+      <td>83</td>
+      <td>38</td>
+      <td>4</td>
+      <td>5</td>
+      <td>5</td>
+      <td>87</td>
+      <td>95</td>
+      <td>90</td>
+      <td>80</td>
+      <td>86</td>
+      <td>88</td>
+      <td>81</td>
+      <td>84</td>
+      <td>77</td>
+      <td>88</td>
+      <td>85</td>
+      <td>88</td>
+      <td>86</td>
+      <td>94</td>
+      <td>74</td>
+      <td>94</td>
+      <td>95</td>
+      <td>77</td>
+      <td>77</td>
+      <td>93</td>
+      <td>63</td>
+      <td>29</td>
+      <td>95</td>
+      <td>76</td>
+      <td>88</td>
+      <td>95</td>
+      <td>24</td>
+      <td>32</td>
+      <td>24</td>
+      <td>7</td>
+      <td>11</td>
+      <td>15</td>
+      <td>14</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>190871</td>
+      <td>91</td>
+      <td>91</td>
+      <td>29</td>
+      <td>175</td>
+      <td>68</td>
+      <td>54</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>85</td>
+      <td>83</td>
+      <td>63</td>
+      <td>86</td>
+      <td>86</td>
+      <td>95</td>
+      <td>88</td>
+      <td>87</td>
+      <td>81</td>
+      <td>95</td>
+      <td>93</td>
+      <td>89</td>
+      <td>96</td>
+      <td>89</td>
+      <td>84</td>
+      <td>80</td>
+      <td>64</td>
+      <td>81</td>
+      <td>53</td>
+      <td>81</td>
+      <td>63</td>
+      <td>37</td>
+      <td>86</td>
+      <td>90</td>
+      <td>93</td>
+      <td>93</td>
+      <td>35</td>
+      <td>32</td>
+      <td>29</td>
+      <td>9</td>
+      <td>9</td>
+      <td>15</td>
+      <td>15</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>192985</td>
+      <td>91</td>
+      <td>91</td>
+      <td>30</td>
+      <td>181</td>
+      <td>70</td>
+      <td>7</td>
+      <td>5</td>
+      <td>4</td>
+      <td>4</td>
+      <td>94</td>
+      <td>82</td>
+      <td>55</td>
+      <td>94</td>
+      <td>82</td>
+      <td>88</td>
+      <td>85</td>
+      <td>83</td>
+      <td>93</td>
+      <td>91</td>
+      <td>76</td>
+      <td>76</td>
+      <td>79</td>
+      <td>91</td>
+      <td>78</td>
+      <td>91</td>
+      <td>63</td>
+      <td>89</td>
+      <td>74</td>
+      <td>91</td>
+      <td>76</td>
+      <td>66</td>
+      <td>88</td>
+      <td>94</td>
+      <td>83</td>
+      <td>89</td>
+      <td>68</td>
+      <td>65</td>
+      <td>53</td>
+      <td>15</td>
+      <td>13</td>
+      <td>5</td>
+      <td>10</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>261962</td>
+      <td>47</td>
+      <td>52</td>
+      <td>22</td>
+      <td>180</td>
+      <td>64</td>
+      <td>155</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>46</td>
+      <td>32</td>
+      <td>48</td>
+      <td>50</td>
+      <td>30</td>
+      <td>45</td>
+      <td>33</td>
+      <td>38</td>
+      <td>48</td>
+      <td>49</td>
+      <td>56</td>
+      <td>60</td>
+      <td>55</td>
+      <td>53</td>
+      <td>70</td>
+      <td>46</td>
+      <td>62</td>
+      <td>51</td>
+      <td>46</td>
+      <td>30</td>
+      <td>52</td>
+      <td>42</td>
+      <td>38</td>
+      <td>43</td>
+      <td>42</td>
+      <td>37</td>
+      <td>38</td>
+      <td>43</td>
+      <td>48</td>
+      <td>6</td>
+      <td>10</td>
+      <td>5</td>
+      <td>15</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>262040</td>
+      <td>47</td>
+      <td>59</td>
+      <td>19</td>
+      <td>175</td>
+      <td>70</td>
+      <td>25</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>54</td>
+      <td>33</td>
+      <td>46</td>
+      <td>51</td>
+      <td>32</td>
+      <td>41</td>
+      <td>53</td>
+      <td>31</td>
+      <td>50</td>
+      <td>42</td>
+      <td>60</td>
+      <td>58</td>
+      <td>64</td>
+      <td>49</td>
+      <td>69</td>
+      <td>49</td>
+      <td>47</td>
+      <td>63</td>
+      <td>47</td>
+      <td>38</td>
+      <td>49</td>
+      <td>39</td>
+      <td>51</td>
+      <td>49</td>
+      <td>44</td>
+      <td>47</td>
+      <td>37</td>
+      <td>44</td>
+      <td>47</td>
+      <td>11</td>
+      <td>12</td>
+      <td>6</td>
+      <td>8</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>262760</td>
+      <td>47</td>
+      <td>55</td>
+      <td>21</td>
+      <td>178</td>
+      <td>72</td>
+      <td>25</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>39</td>
+      <td>32</td>
+      <td>43</td>
+      <td>49</td>
+      <td>37</td>
+      <td>47</td>
+      <td>37</td>
+      <td>37</td>
+      <td>49</td>
+      <td>49</td>
+      <td>60</td>
+      <td>60</td>
+      <td>58</td>
+      <td>46</td>
+      <td>59</td>
+      <td>50</td>
+      <td>57</td>
+      <td>56</td>
+      <td>50</td>
+      <td>34</td>
+      <td>51</td>
+      <td>38</td>
+      <td>45</td>
+      <td>46</td>
+      <td>39</td>
+      <td>36</td>
+      <td>38</td>
+      <td>44</td>
+      <td>48</td>
+      <td>8</td>
+      <td>6</td>
+      <td>7</td>
+      <td>10</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>262820</td>
+      <td>47</td>
+      <td>60</td>
+      <td>19</td>
+      <td>173</td>
+      <td>66</td>
+      <td>25</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>29</td>
+      <td>49</td>
+      <td>40</td>
+      <td>38</td>
+      <td>34</td>
+      <td>42</td>
+      <td>36</td>
+      <td>34</td>
+      <td>33</td>
+      <td>45</td>
+      <td>69</td>
+      <td>67</td>
+      <td>72</td>
+      <td>48</td>
+      <td>73</td>
+      <td>48</td>
+      <td>50</td>
+      <td>50</td>
+      <td>40</td>
+      <td>41</td>
+      <td>34</td>
+      <td>14</td>
+      <td>47</td>
+      <td>40</td>
+      <td>49</td>
+      <td>47</td>
+      <td>10</td>
+      <td>14</td>
+      <td>11</td>
+      <td>7</td>
+      <td>10</td>
+      <td>7</td>
+      <td>14</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>264540</td>
+      <td>47</td>
+      <td>60</td>
+      <td>19</td>
+      <td>167</td>
+      <td>61</td>
+      <td>159</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>39</td>
+      <td>32</td>
+      <td>46</td>
+      <td>50</td>
+      <td>37</td>
+      <td>48</td>
+      <td>38</td>
+      <td>32</td>
+      <td>49</td>
+      <td>38</td>
+      <td>70</td>
+      <td>67</td>
+      <td>65</td>
+      <td>54</td>
+      <td>85</td>
+      <td>50</td>
+      <td>62</td>
+      <td>57</td>
+      <td>40</td>
+      <td>36</td>
+      <td>55</td>
+      <td>42</td>
+      <td>47</td>
+      <td>46</td>
+      <td>35</td>
+      <td>36</td>
+      <td>33</td>
+      <td>31</td>
+      <td>37</td>
+      <td>8</td>
+      <td>13</td>
+      <td>13</td>
+      <td>9</td>
+      <td>14</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 44 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Selecting-Columns-Using-loc">Selecting Columns Using loc<a class="anchor-link" href="#Selecting-Columns-Using-loc"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>loc</code> is a great way to select row and columns. The syntax can look confusing at first, but let's break it down.</p>
+<p><code>df.loc[a:b, x:y]</code></p>
+<p>The first argument <code>a:b</code> refers to the rows you wish to select. As we are focussing on selecting columns in this notebook, we will use <code>:</code> which returns all rows.</p>
+<p>The second argument <code>x:y</code> refers to the columns you want to select. There are three main ways we can use this. We can :</p>
+<ol>
+<li>Select a single column <code>df.loc[:,['short_name']]</code></li>
+<li>Select multiple columns <code>df.loc[:,['short_name', 'overall', 'value_eur']]</code></li>
+<li>Select a slice of columns <code>df.loc[:,['short_name':'age']</code></li>
+</ol>
+<p>The slice method will select the two columns and any other that are inbetween.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;short_name&#39;</span><span class="p">]]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">name_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">name_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name_overall_value_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;short_name&#39;</span><span class="p">,</span> <span class="s1">&#39;overall&#39;</span><span class="p">,</span> <span class="s1">&#39;value_eur&#39;</span><span class="p">]]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">name_overall_value_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">name_overall_value_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+      <th>overall</th>
+      <th>value_eur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+      <td>93</td>
+      <td>78000000.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+      <td>92</td>
+      <td>119500000.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+      <td>91</td>
+      <td>45000000.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+      <td>91</td>
+      <td>129000000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+      <td>91</td>
+      <td>125500000.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+      <td>47</td>
+      <td>70000.0</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+      <td>47</td>
+      <td>110000.0</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+      <td>47</td>
+      <td>100000.0</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+      <td>47</td>
+      <td>110000.0</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+      <td>47</td>
+      <td>110000.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">name_age_slice_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;short_name&#39;</span><span class="p">:</span><span class="s1">&#39;age&#39;</span><span class="p">]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">name_age_slice_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">name_age_slice_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+      <th>long_name</th>
+      <th>player_positions</th>
+      <th>overall</th>
+      <th>potential</th>
+      <th>value_eur</th>
+      <th>wage_eur</th>
+      <th>age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+      <td>Lionel Andrés Messi Cuccittini</td>
+      <td>RW, ST, CF</td>
+      <td>93</td>
+      <td>93</td>
+      <td>78000000.0</td>
+      <td>320000.0</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+      <td>Robert Lewandowski</td>
+      <td>ST</td>
+      <td>92</td>
+      <td>92</td>
+      <td>119500000.0</td>
+      <td>270000.0</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+      <td>Cristiano Ronaldo dos Santos Aveiro</td>
+      <td>ST, LW</td>
+      <td>91</td>
+      <td>91</td>
+      <td>45000000.0</td>
+      <td>270000.0</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+      <td>Neymar da Silva Santos Júnior</td>
+      <td>LW, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>129000000.0</td>
+      <td>270000.0</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+      <td>Kevin De Bruyne</td>
+      <td>CM, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>125500000.0</td>
+      <td>350000.0</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+      <td>宋德福</td>
+      <td>CDM</td>
+      <td>47</td>
+      <td>52</td>
+      <td>70000.0</td>
+      <td>1000.0</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+      <td>Caoimhin Porter</td>
+      <td>CM</td>
+      <td>47</td>
+      <td>59</td>
+      <td>110000.0</td>
+      <td>500.0</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+      <td>Nathan Logue-Cunningham</td>
+      <td>CM</td>
+      <td>47</td>
+      <td>55</td>
+      <td>100000.0</td>
+      <td>500.0</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+      <td>Luke Rudden</td>
+      <td>ST</td>
+      <td>47</td>
+      <td>60</td>
+      <td>110000.0</td>
+      <td>500.0</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+      <td>Emanuel Lalchhanchhuaha</td>
+      <td>CAM</td>
+      <td>47</td>
+      <td>60</td>
+      <td>110000.0</td>
+      <td>500.0</td>
+      <td>19</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 8 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Selecting-Columns-using-iloc">Selecting Columns using iloc<a class="anchor-link" href="#Selecting-Columns-using-iloc"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>iloc</code> is very similar to <code>loc</code>, however instead of using column names, we can use the columns index. The same three methods can be achieved using <code>iloc</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iloc_name_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">2</span><span class="p">]]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">iloc_name_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">iloc_name_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iloc_name_overall_value_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">iloc_name_overall_value_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">iloc_name_overall_value_df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+      <th>overall</th>
+      <th>value_eur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+      <td>93</td>
+      <td>78000000.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+      <td>92</td>
+      <td>119500000.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+      <td>91</td>
+      <td>45000000.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+      <td>91</td>
+      <td>129000000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+      <td>91</td>
+      <td>125500000.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+      <td>47</td>
+      <td>70000.0</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+      <td>47</td>
+      <td>110000.0</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+      <td>47</td>
+      <td>100000.0</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+      <td>47</td>
+      <td>110000.0</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+      <td>47</td>
+      <td>110000.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iloc_name_age_slice</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">iloc_name_age_slice</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">iloc_name_age_slice</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_name</th>
+      <th>long_name</th>
+      <th>player_positions</th>
+      <th>overall</th>
+      <th>potential</th>
+      <th>value_eur</th>
+      <th>wage_eur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L. Messi</td>
+      <td>Lionel Andrés Messi Cuccittini</td>
+      <td>RW, ST, CF</td>
+      <td>93</td>
+      <td>93</td>
+      <td>78000000.0</td>
+      <td>320000.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R. Lewandowski</td>
+      <td>Robert Lewandowski</td>
+      <td>ST</td>
+      <td>92</td>
+      <td>92</td>
+      <td>119500000.0</td>
+      <td>270000.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cristiano Ronaldo</td>
+      <td>Cristiano Ronaldo dos Santos Aveiro</td>
+      <td>ST, LW</td>
+      <td>91</td>
+      <td>91</td>
+      <td>45000000.0</td>
+      <td>270000.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Neymar Jr</td>
+      <td>Neymar da Silva Santos Júnior</td>
+      <td>LW, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>129000000.0</td>
+      <td>270000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>K. De Bruyne</td>
+      <td>Kevin De Bruyne</td>
+      <td>CM, CAM</td>
+      <td>91</td>
+      <td>91</td>
+      <td>125500000.0</td>
+      <td>350000.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19234</th>
+      <td>Song Defu</td>
+      <td>宋德福</td>
+      <td>CDM</td>
+      <td>47</td>
+      <td>52</td>
+      <td>70000.0</td>
+      <td>1000.0</td>
+    </tr>
+    <tr>
+      <th>19235</th>
+      <td>C. Porter</td>
+      <td>Caoimhin Porter</td>
+      <td>CM</td>
+      <td>47</td>
+      <td>59</td>
+      <td>110000.0</td>
+      <td>500.0</td>
+    </tr>
+    <tr>
+      <th>19236</th>
+      <td>N. Logue</td>
+      <td>Nathan Logue-Cunningham</td>
+      <td>CM</td>
+      <td>47</td>
+      <td>55</td>
+      <td>100000.0</td>
+      <td>500.0</td>
+    </tr>
+    <tr>
+      <th>19237</th>
+      <td>L. Rudden</td>
+      <td>Luke Rudden</td>
+      <td>ST</td>
+      <td>47</td>
+      <td>60</td>
+      <td>110000.0</td>
+      <td>500.0</td>
+    </tr>
+    <tr>
+      <th>19238</th>
+      <td>E. Lalchhanchhuaha</td>
+      <td>Emanuel Lalchhanchhuaha</td>
+      <td>CAM</td>
+      <td>47</td>
+      <td>60</td>
+      <td>110000.0</td>
+      <td>500.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>19239 rows × 7 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Type:  &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/2022/06/30/Selecting-Columns-With-Pandas.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Learn data science techniques using football data and Jupyter Notebooks</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
